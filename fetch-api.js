@@ -1,11 +1,10 @@
+const BASE_URL = "https://6842fa37e1347494c31eae17.mockapi.io/api/author";
+
 async function getAuthors() {
   try {
-    const response = await fetch(
-      "https://6842fa37e1347494c31eae17.mockapi.io/api/author",
-      {
-        method: "GET",
-      }
-    );
+    const response = await fetch(BASE_URL, {
+      method: "GET",
+    });
 
     const data = await response.json();
 
@@ -15,19 +14,14 @@ async function getAuthors() {
   }
 }
 
-async function createAuthor() {
+async function createAuthor(author) {
   try {
-    await fetch("https://6842fa37e1347494c31eae17.mockapi.io/api/author", {
+    await fetch(BASE_URL, {
       method: "POST",
       headers: {
         "Content-type": "Application/json",
       },
-      body: JSON.stringify({
-        name: "Tiririca2",
-        email: "tiririca2@example.com",
-        cpf: "123.456.789-01",
-        phone: "(11) 99999-1234",
-      }),
+      body: JSON.stringify(author),
     });
     console.log("Author creado");
   } catch (error) {
@@ -35,6 +29,25 @@ async function createAuthor() {
   }
 }
 
-// createAuthor();
+async function deleteAuthor(id) {
+  try {
+    await fetch(`${BASE_URL}/${id}`, {
+      method: "DELETE",
+    });
+    console.log("Author deletado");
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-// getAuthors();
+// createAuthor({
+//   name: "Angelo Lustosa",
+//   email: "angelo@example.com",
+//   cpf: "000.000.000-02",
+//   phone: "(11) 1233-1233",
+// });
+
+// deleteAuthor(14);
+
+// Desafio de casa:
+// Implementar o metodo de atulizar os dados de um author
